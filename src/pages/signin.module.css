@@ -1,0 +1,38 @@
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin {
+    background-color: rgb(15, 15, 15);
+    display: grid;
+    grid-template-columns: 2;
+    grid-template-rows: 3;
+}
+
+#ul {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#username {
+    grid-column: 2;
+    grid-row: 1
+}
+
+#pl {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#password {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#submit {
+    grid-column: 2;
+}

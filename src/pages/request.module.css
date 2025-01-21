@@ -1,0 +1,57 @@
+.requestBackground {
+    background-color: rgb(30, 30, 30);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: white;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 98%;
+    width: 98%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+#trackRequestForm {
+    display: grid;
+    grid-template-columns: repeat(3, .8fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: fit-content;
+}
+
+
+
+.cloneVoiceLabel {
+    grid-column: 1; 
+    grid-row: 2;
+}   
+
+#cloneVoiceSelection {
+    grid-column: 2 / 3;
+    grid-row: 2;
+}
+
+
+.siteTypeLabel {
+    grid-column: 1 / 1;
+}
+
+#siteTypeSelection {
+    grid-column: 2 / 3;    
+}
+
+.siteLinkLabel {
+    grid-column: 1 / 1;
+    grid-row: 3;
+}
+
+#siteLinkInput {
+    grid-column: 2 / 3;
+    grid-row: 3;
+}

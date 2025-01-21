@@ -1,0 +1,61 @@
+.appcontainer {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(30, 30, 30);
+    color: white
+}
+
+.app {
+    background-color: rgb(30, 30, 30);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.playlistSection {
+    background-color: rgb(25, 25, 25);
+
+    grid-column: 1 / 3;
+    grid-row: 1 / 10;
+    overflow-y: auto;
+}
+
+.displaySection {
+    grid-column: 3 / 11;
+    grid-row-start: 1;
+    grid-row-end: 10;
+}
+
+
+.playlistHeader {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%
+}
+#addButton {
+    background-color: rgb(25, 25, 25);
+    border: 0px;
+    color: white;
+    font-size: 2rem;
+    align-content: center;
+}
+#addButton:active {
+    background-color: rgb(122, 122, 122);
+}
+
+#playlistList {
+    list-style:none;
+    padding: 0px;
+}
+
+
+.audioPlayer {
+    grid-row: 10 / 10;
+    grid-column: 1 / 11;
+}

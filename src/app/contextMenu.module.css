@@ -1,0 +1,43 @@
+#contextMenuBackground {
+    background-color: rgb(40, 40, 40);
+    width: 10%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+    position: fixed;
+}
+
+#contextMenuList {
+    list-style: none;
+    padding: 0px;
+    margin: 5px;
+}
+
+.contextMenuButton {
+    background-color: rgb(40, 40, 40);
+    width: 100%;
+    text-align: left;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin: 0px;
+    padding: 10px;
+}
+
+.contextMenuExtension {
+    background-color: rgb(40, 40, 40);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+
+}
+
+.contextMenuExtension:hover {
+    background-color: rgb(60, 60, 60);
+}
+.contextMenuButton:hover {
+    background-color: rgb(60, 60, 60);
+}

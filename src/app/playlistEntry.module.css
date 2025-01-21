@@ -1,0 +1,29 @@
+.playlistEntryBackground {
+    background-color: rgb(25, 25, 25);
+    display: flex;
+    align-items: center;
+    height:fit-content;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.playlistEntryBackground:hover {
+    background-color: rgb(50, 50, 50);
+}
+
+.playlistEntryBody {
+
+}
+
+.playlistTitle {
+    pointer-events: none;
+    user-select: none;
+    color: rgb(122, 122, 122);
+}
+.playlistCount {
+    pointer-events: none;
+    user-select: none;
+
+    color: rgb(100, 100, 100);
+}
+

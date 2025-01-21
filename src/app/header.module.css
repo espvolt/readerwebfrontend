@@ -1,0 +1,38 @@
+.header {
+    background-color: rgb(10, 10, 10);
+    display: flex;
+    justify-content: space-between;
+}
+
+#button {
+    background-color: rgb(60, 60, 60);
+    border: 0px;
+    color: white
+}
+
+#button:active {
+    background-color: rgb(80, 80, 80);
+}
+
+#username {
+    padding: 0px;
+    margin: 0px;
+}
+#searchBarContainer {
+}
+
+#submit {
+    display: none;
+}
+
+#requestButton {
+    background-color: rgb(60, 60, 60);
+    border: 0px;
+    color: white;
+    margin-right: 10px;
+    display: none;
+}
+
+#requestButton:hover {
+    background-color: rgb(80, 80, 80);
+}
