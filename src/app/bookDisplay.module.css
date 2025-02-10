@@ -1,0 +1,42 @@
+.bookDisplayBackground {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(20, 20, 20);
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#bookTitle {
+
+}
+
+#bookTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px 2px;
+
+}
+
+#bookTable * {
+    margin: none;
+}
+
+
+#bookTable th {
+    text-align: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-bottom: 2px solid rgb(60, 60, 60);
+}
+
+#bookTable td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    user-select: none;
+}
+
+
+#bookTable tr:hover {
+    background-color: rgb(60, 60, 60);
+}

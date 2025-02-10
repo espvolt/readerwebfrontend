@@ -1,0 +1,42 @@
+.multiSearchBackground {
+    background-color: rgb(20, 20, 20);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-left: 10px;
+    flex-direction: column;;
+}
+
+#searchResultsText {
+
+}
+
+#searchResultsBooks {
+    border-collapse: collapse;
+}
+
+#searchResultsBooks tr {
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+#searchResultsBooks td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    user-select: none;
+
+}
+
+#searchResultsBooks tr:hover {
+    background-color: rgb(60, 60, 60);
+}
+#searchResultsBooks .tableHeader {
+    border-bottom: 1px solid rgb(40, 40, 40);
+    pointer-events: none;
+}
+
+.playButton {
+    border-radius: 25px;
+}

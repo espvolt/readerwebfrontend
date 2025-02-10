@@ -36,3 +36,17 @@
 #requestButton:hover {
     background-color: rgb(80, 80, 80);
 }
+
+
+.rightDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#logout {
+    background-color: rgb(60 ,60, 60);
+    color: white;
+    border: none;
+    margin-right: 10px;
+    display: none;
+}

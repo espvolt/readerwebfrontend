@@ -16,3 +16,27 @@
     list-style: none;
     padding: 0px;
 }
+
+.playlistTable {
+    border-collapse: separate;
+    border-spacing: 0px 2px;
+}
+#playlistHeader {
+    text-align: left;
+    pointer-events: none;
+}
+
+#playlistHeader th {
+    border-bottom: 2px solid rgb(60, 60, 60);
+
+}
+
+.playlistTable td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    user-select: none;
+}
+
+.playlistTable tr:hover {
+    background-color: rgb(80, 80, 80);
+}

@@ -1,6 +1,6 @@
 import style from "./trackEntry.module.css"
-import { addTrackToPlaylist, removeTrackFromPlaylist, triggerPlayTrack } from "./global";
-import { createContextMenu, getCachedPlaylists, refreshPlaylists } from "@/pages";
+import { addTrackToPlaylist, getPlaylists, removeTrackFromPlaylist, triggerPlayTrack } from "./global";
+import { createContextMenu, getCachedPlaylistsAndBookmarks, refreshPlaylistsAndBookmarks } from "@/pages/[...app]";
 
 export function TrackEntryHeader() {
     return (
@@ -31,13 +31,13 @@ export function TrackEntry(props) {
     }
 
     const attemptPlayTrack = (track_id) => {
-        triggerPlayTrack(track_id)
+        triggerPlayTrack(track_id);
     }
 
     const onContextMenu = (ev) => {
         ev.preventDefault();
         
-        const playlistData = getCachedPlaylists();
+        const playlistData = getPlaylists();
         var extensionData = []
         
         Object.values(playlistData).forEach((playlist) => {
@@ -56,11 +56,11 @@ export function TrackEntry(props) {
             const currentFunction = () => {
                 if (playlist.playlistTracks.includes(parseInt(props.trackId))) {
                     removeTrackFromPlaylist(playlist.playlistId, props.trackId).then(() => {
-                        refreshPlaylists();
+                        refreshPlaylistsAndBookmarks();
                     });
                 } else {
                     addTrackToPlaylist(playlist.playlistId, props.trackId).then(() => {
-                        refreshPlaylists();
+                        refreshPlaylistsAndBookmarks();
                     });    
                 }
             }

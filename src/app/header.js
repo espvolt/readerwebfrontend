@@ -1,11 +1,12 @@
 import style from "./header.module.css"
 import { useRouter } from 'next/router';
 import { useEffect } from "react";
-import { checkLogin, getDisplayName } from "./global";
+import { checkLogin, getDisplayName, logout } from "./global";
 import { getSessionId, getUsername } from "./global";
 
 export default function Header(props) {
     const router = useRouter();
+
 
     const onSignInClicked = () => {
         router.push("/signin");
@@ -20,7 +21,7 @@ export default function Header(props) {
         var user_text = document.getElementById(style.username);
         var button = document.getElementById(style.button);
         var requestButton = document.getElementById(style.requestButton);
-
+        var signoutButton = document.getElementById(style.logout);
         button.style.display = "none";
         user_text.style.display = "none";
 
@@ -31,6 +32,7 @@ export default function Header(props) {
                 user_text.style.display = "block";
                 user_text.textContent = getDisplayName();
                 requestButton.style.display = "block";
+                signoutButton.style.display = "block";
             } else {
                 button.style.display = "block";
             }
@@ -48,6 +50,10 @@ export default function Header(props) {
         }
     }
 
+    const logOutClicked = () => {
+        logout()
+    }
+
     return (
         <>
             <div className={style.header}>
@@ -61,7 +67,8 @@ export default function Header(props) {
                     </form>
                 </div>
                 }
-                <div>
+                <div className={style.rightDiv}>
+                    <button id={style.logout} onClick={logOutClicked}>Sign Out</button>
                     <button id={style.requestButton} onClick={onRequestClicked}>Request</button>
                 </div>
             </div>

@@ -1,0 +1,12 @@
+.bookmarkListEntryBackground {
+    width: 100%;
+    height: 100%;
+    color: rgb(122, 122, 122);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    user-select: none;
+}
+
+.bookmarkListEntryBackground:hover {
+    background-color: rgb(70, 70, 70);
+}

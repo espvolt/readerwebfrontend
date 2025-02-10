@@ -29,7 +29,7 @@ export default function SignIn() {
             return;
         } else {
             process_session_info(data);
-            router.push("/");
+            router.push("/search"); // TODO why doesnt this load index and then route to /search??
         }
     }
 

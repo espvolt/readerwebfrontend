@@ -10,17 +10,48 @@ export var sessionDisplayName = "";
 export var playTrack = null;
 export var currentTrack = -1;
 export var trackFinished = null;
+export var volume = null;
+
+export var _updateTrackProgress = null;
+
+export function updateTrackProgress(id, progress) {
+    if (_updateTrackProgress != null) {
+        return _updateTrackProgress(id, progress)
+    }
+
+    return null;
+}
+
+export function setUpdateTrackProgress(callback) {
+    _updateTrackProgress = callback;
+}
+
+export function setVolume(val) {
+    volume = val
+    cookies.set("volume", val, {path: "/"});
+}
+
+export function getVolume() {
+    if (cookies.get("volume") != null) {
+        setVolume(parseFloat(cookies.get("volume")));
+    } else {
+        setVolume(1.0);
+    }
+    return volume;
+}
+
 
 export function setPlayTrackCallback(val) {
     playTrack = val;
 }
 
-export function triggerPlayTrack(id) {
+export function triggerPlayTrack(id, trackProgress) {
     if (playTrack != null) {
-        playTrack(id);
+        playTrack(id, trackProgress);
         currentTrack = id;
     }
 }
+
 export const cookies = new Cookies(null, {lastLogin: "", lastUsername: ""});
 
 export function setSessionId(id) {
@@ -43,6 +74,12 @@ export function getDisplayName() {
     return sessionDisplayName;
 }
 
+export function logout() {
+    cookies.remove("lastLogin");
+    cookies.remove("lastUsername");
+    location.reload();
+}
+
 export const ajax = async (config) => { // LOL
     const request = await fetch(config.url, {
         method: config.method,
@@ -58,12 +95,17 @@ export const ajax = async (config) => { // LOL
 }
 
 export function process_session_info(info) {
+    if (info == null) {
+        document.dispatchEvent(sessionInfoProcessed);
+        return;
+    }
     session_id = info["session_id"];
     // console.log("PROCESS", info);
     session_username = info["user"];
     sessionDisplayName = info["display_name"];
-    cookies.set("lastLogin", info["last_login"]);
-    cookies.set("lastUsername", info["user"]);
+    cookies.set("lastLogin", info["last_login"], {"path": "/"});
+    cookies.set("lastUsername", info["user"], {"path": "/"});
+    console.log(info["last_login"]);
     document.dispatchEvent(sessionInfoProcessed);
 }
 
@@ -100,6 +142,7 @@ export async function checkLogin() {
         var data = await resp.json();
 
         if (data == null) {
+            process_session_info(null);
             return false;
         } else {
             // console.log(data);
@@ -138,16 +181,24 @@ export async function createPlaylist(playlistName) {
 }
 
 export async function getPlaylist(id) {
-    if (session_id == -1){ 
-        return {}
-    }
+    var resp = null;
 
-    var resp = await _fetch(`${SERVER_IP}/playlist?id=${id}`)
+    if (session_id == -1) {
+        resp = await _fetch(`${SERVER_IP}/playlist?id=${id}`)
+    } else {
+        resp = await _fetch(`${SERVER_IP}/playlist?id=${id}&session_id=${session_id}&username=${session_username}`) 
+    }
     return await resp.json();
 }
 
 export async function getTracks(searchContent="") {
     var resp = await _fetch(`${SERVER_IP}/get_selection?name_filter=${searchContent}`)
+
+    return await resp.json()
+}
+
+export async function getMultiSearch(searchContent="") {
+    var resp = await _fetch(`${SERVER_IP}/multisearch?name_filter=${searchContent}`)
 
     return await resp.json()
 }
@@ -209,5 +260,89 @@ export async function removeTrackFromPlaylist(playlistId, trackId) {
 export async function getVoiceOptions() {
     var resp = await _fetch(`${SERVER_IP}/getvoiceoptions`)
 
+    return await resp.json();
+
+}
+
+export async function getBookmarks(username=null) {
+    if (session_id == -1) {
+        return null;
+    }
+
+    if (username == null) {
+        username = session_username;
+    }
+
+    var resp = await _fetch(`${SERVER_IP}/getbookmarks?username=${username}`)
+
+    return await resp.json();
+}
+
+export async function createBookmark(book_id) {
+    if (book_id < 0 || session_id == -1) {
+        return null;
+    }
+
+    console.log({
+        "session_id": session_id,
+        "username": session_username,
+        "book_id": book_id,
+    });
+    var resp = await _fetch(`${SERVER_IP}/createbookmark`, {
+        "session_id": session_id,
+        "username": session_username,
+        "book_id": book_id,
+    }, "post")
+
+    return await resp.json();
+}
+
+export async function removeBookmark(book_id) {
+    if (book_id < 0 || session_id == -1) {
+        return null;
+    }
+
+    var resp = await _fetch(`${SERVER_IP}/removebookmark`, {
+        "session_id": session_id,
+        "username": session_username,
+        "book_id": book_id
+    }, "post");
+
+    return await resp.json()
+}
+
+export async function getBookData(book_id) {
+    if (book_id < 0) {
+        return null;
+    }
+    var resp = null;
+
+    if (session_id == -1) {
+        var resp = await _fetch(`${SERVER_IP}/getbookdata?book_id=${book_id}`);
+    } else {
+        var resp = await _fetch(`${SERVER_IP}/getbookdata?book_id=${book_id}&session_id=${session_id}&username=${session_username}`);
+
+    }
+
+    return await resp.json();
+}
+
+export async function uploadTrackProgress(track_id, progress) {
+    if (session_id == -1 || track_id < 0) {
+        return null;
+    }
+
+    var resp = await _fetch(`${SERVER_IP}/posttrackprogress`, {
+        "session_id": session_id,
+        "username": session_username,
+        "track_id": track_id,
+        "progress": progress
+    }, "post")
+
+    return await resp.json();
+}
+
+export async function getTracksFromArray(tracks) {
+    var resp = await _fetch(`${SERVER_IP}/getmultipletracks?tracks=${tracks}`)
     return await resp.json();
 }

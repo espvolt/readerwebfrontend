@@ -1,13 +1,14 @@
 import style from "./playlistEntry.module.css"
 import { deletePlaylist } from "./global";
-import { createContextMenu } from "@/pages/index";
-import { refreshPlaylists } from "@/pages";
+import { createContextMenu } from "@/pages/[...app]";
+import { refreshPlaylistsAndBookmarks, setDisplay } from "@/pages/[...app]";
+import PlaylistDisplay from "./playlistDisplay";
 
 export default function PlaylistEntry(props) {
     // console.log("ENTRY PORPS", props);
     const deleteCallback = () => {
         deletePlaylist(props.playlistEntryId).then(
-            refreshPlaylists
+            refreshPlaylistsAndBookmarks
         );
     }
     const onContextMenuAttempted = (ev) => {
@@ -21,7 +22,10 @@ export default function PlaylistEntry(props) {
         ], {x: ev.clientX, y: ev.clientY});
     }
     return (
-        <div className={style.playlistEntryBackground} playlistentryid={props.playlistEntryId} onContextMenu={onContextMenuAttempted}>
+        <div className={style.playlistEntryBackground} playlistentryid={props.playlistEntryId} onContextMenu={onContextMenuAttempted}
+            onDoubleClick={() => {
+                setDisplay(<PlaylistDisplay key={props.title + props.playlistEntryId + "playlist"} playlistId={props.playlistEntryId}/>);
+            }}>
             <div>
                 <h1 className={style.playlistTitle}>{props.title}</h1>
                 <p className={style.playlistCount}>{props.numItems} items</p>
